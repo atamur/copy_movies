@@ -1,7 +1,13 @@
-import shutil
-from hb_encoder import HbEncoder
 import os
+import shutil
 import sys
+
+from hb_encoder import HbEncoder
+
+# Encodes the MOD files from my video dir:
+# 1) encode to a temp folder
+# 2) move original to backup
+# 3) copy encoded back to original location
 
 source = sys.argv[1]
 destination = sys.argv[2]

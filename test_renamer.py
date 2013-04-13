@@ -7,6 +7,7 @@ from renamer import proper_name
 class TestRenaming(unittest.TestCase):
     timestamp = datetime.strptime("2012.03.27 10:23:17", "%Y.%m.%d %H:%M:%S")
 
+    @unittest.skip("no longer a requirement")
     def test_renames_already_changed(self):
         modified = "D:\\vid\\Baby\\6m-9m\\2013.02.10_MOV03D.mp4"
         expected = "D:\\vid\\Baby\\6m-9m\\2012.03.27_10-23-17_MOV061.mp4"
@@ -34,7 +35,7 @@ class TestRenaming(unittest.TestCase):
 
     def test_does_not_rename_correct(self):
         start = "D:\\vid\\Baby\\6m-9m\\2013.02.13_20-47-44_MOV064.mp4"
-        self.assertEqual(start, proper_name(start, self.timestamp, False))
+        self.assertEqual(start, proper_name(start, self.timestamp))
 
     def test_does_not_append_underscore(self):
         start = "D:\\vid\\Baby\\6m-9m\\2012.12.15_162651.mp4"

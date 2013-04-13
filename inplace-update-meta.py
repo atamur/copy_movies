@@ -18,7 +18,7 @@ for root, dirs, files in os.walk(target):
             continue
         full_name = os.path.join(root, file)
         create_time = datetime.fromtimestamp(os.path.getmtime(full_name))
-        rename_to = proper_name(full_name, create_time, False)
+        rename_to = proper_name(full_name, create_time)
         if rename_to != full_name:
             shutil.move(full_name, rename_to)
             print("%s => %s" % (full_name, rename_to))

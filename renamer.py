@@ -6,10 +6,12 @@ def apply_timestamp_convention(name, timestamp):
     return  timestamp.strftime("%Y.%m.%d_%H-%M-%S") + "_" + name
 
 
-def proper_name(file, timestamp, fix_hex = True):
+def proper_name(file, timestamp):
     """ Finds  proper name based on given timestamp. """
     (folder, full_name) = os.path.split(file)
     (name, ext) = os.path.splitext(full_name)
+
+    fix_hex = re.match("^MOV[0-9A-F]{3}$", name)
 
     # first pull the date out
     # try to find embedded date

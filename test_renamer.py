@@ -22,5 +22,26 @@ class TestRenaming(unittest.TestCase):
         expected = "D:\\vid\\Baby\\6m-9m\\2012.03.27_10-23-17_1.mp4"
         self.assertEqual(expected, proper_name(bad_name, self.timestamp))
 
+    def test_extracts_existing_date_format1(self):
+        start = "D:\\vid\\Baby\\6m-9m\\VID_20120307_193607.mp4"
+        expected = "D:\\vid\\Baby\\6m-9m\\2012.03.07_19-36-07_VID.mp4"
+        self.assertEqual(expected, proper_name(start, self.timestamp))
+
+    def test_extracts_existing_date_format2(self):
+        start = "D:\\vid\\Baby\\6m-9m\\video-2010-05-09-12-52-10.3gp"
+        expected = "D:\\vid\\Baby\\6m-9m\\2010.05.09_12-52-10_video.3gp"
+        self.assertEqual(expected, proper_name(start, self.timestamp))
+
+    def test_does_not_rename_correct(self):
+        start = "D:\\vid\\Baby\\6m-9m\\2013.02.13_20-47-44_MOV064.mp4"
+        self.assertEqual(start, proper_name(start, self.timestamp, False))
+
+    def test_does_not_append_underscore(self):
+        start = "D:\\vid\\Baby\\6m-9m\\2012.12.15_162651.mp4"
+        expected = "D:\\vid\\Baby\\6m-9m\\2012.12.15_16-26-51.mp4"
+        self.assertEqual(expected, proper_name(start, self.timestamp))
+
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -15,7 +15,13 @@ def proper_name(file, timestamp, fix_hex = True):
     # try to find embedded date
     existing_date = re.search("[-._ ]?(?P<Y>\d{4})[-._ ]?(?P<m>\d{2})[-._ ]?(?P<d>\d{2})[-._ ]?(?P<H>\d{2})[-._ ]?(?P<M>\d{2})[-._ ]?(?P<S>\d{2})[-._ ]?", name)
     if existing_date:
-        name = name.replace(existing_date.group(0), "")
+        name = name.replace(existing_date.group(0), "").__str__()
+
+        # check there's no dup date
+        dup_match = re.search("[-._ ]?\d\d\d\d\.\d\d\.\d\d$", name)
+        if dup_match:
+            name = name.replace(dup_match.group(0), "")
+
         name = "_{0}".format(name) if name else ""
         name = "%s.%s.%s_%s-%s-%s%s" % (
             existing_date.group("Y"),

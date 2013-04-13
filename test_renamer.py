@@ -41,6 +41,11 @@ class TestRenaming(unittest.TestCase):
         expected = "D:\\vid\\Baby\\6m-9m\\2012.12.15_16-26-51.mp4"
         self.assertEqual(expected, proper_name(start, self.timestamp))
 
+    def test_removes_dup_date(self):
+        start = "D:\\vid\\Baby\\6m-9m\\2012.08.18_11-55-12_2012.08.18.3gp"
+        expected = "D:\\vid\\Baby\\6m-9m\\2012.08.18_11-55-12.3gp"
+        self.assertEqual(expected, proper_name(start, self.timestamp))
+
 
 
 if __name__ == '__main__':

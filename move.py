@@ -5,6 +5,9 @@ import os
 import shutil
 import re
 
+# extracts files by extension and copies away keeping dir structure (with yyyymmdd prefix)
+# example args: -e "mod,avi,mp4,mov,3gp,m4v,asf" "D:\Pictures" "D:\vid"
+
 parser = OptionParser()
 parser.add_option("-e", "--extensions", dest="extensions")
 

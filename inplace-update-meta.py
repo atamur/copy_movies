@@ -5,7 +5,7 @@ from renamer import proper_name
 import shutil
 import sys
 
-# Copies back metadata from backup
+# Updates the metadata in the library
 
 target = sys.argv[1]
 

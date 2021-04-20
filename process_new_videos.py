@@ -7,6 +7,11 @@ import shutil
 from hb_encoder import HbEncoder
 from renamer import proper_name
 
+# todo
+# 1) preserver creation date time for encoder
+# 2) correct existing date times
+# 3) preserver timezone ? for encoding
+
 parser = OptionParser()
 (options, args) = parser.parse_args()
 work_dir = args[0]

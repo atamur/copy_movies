@@ -6,7 +6,7 @@ fd = open(fname, encoding ="ISO-8859-1")
 data = json.load(fd)
 transactions = [x for x in data['list'] if x['stateType'] == 'booked' and x['type'] != 'fee']
 # print(transactions[0])
-transactionsConverted = open(fname + '.csv', 'w')
+transactionsConverted = open(fname + '.csv', 'w', encoding ="ISO-8859-1")
 writer = csv.writer(transactionsConverted)
 
 # Write header row

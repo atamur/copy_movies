@@ -1,24 +1,26 @@
 import json
 import csv, time
+import pandas as pd
 
-fname = 'viseca_asya.json'
-fd = open(fname, encoding ="ISO-8859-1")
-data = json.load(fd)
-transactions = [x for x in data['list'] if x['stateType'] == 'booked' and x['type'] != 'fee']
-# print(transactions[0])
+pd.set_option('display.max_columns', None)
+
+fname = 'transactions.xls'
+df = pd.read_excel(fname)
+df = df[df['Status'] == 'Settled transaction']
+
 transactionsConverted = open(fname + '.csv', 'w', encoding ="ISO-8859-1")
 writer = csv.writer(transactionsConverted)
 
 # Write header row
 writer.writerow(['Date','Payee','Category','Memo','Outflow','Inflow'])
 
-for row in transactions:
+for index, row in df.iterrows():
   print(row)
-  date = time.strftime('%d/%m/%Y', time.strptime(row['date'], '%Y-%m-%dT%H:%M:%S')) # DD/MM/YYYY
-  payee = row['merchantName']
+  date = row['Date']
+  payee = row['Description']
   category = ''
-  memo = row['details']
-  amount = row['amount']
+  memo = ''
+  amount = row['Amount']
 
   # Check if the transaction is Debit (outflow) or Credit (inflow)
   if amount >= 0:

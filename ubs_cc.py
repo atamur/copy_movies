@@ -1,4 +1,3 @@
-import json
 import csv, time
 
 fname = 'ubs credit card 2'
@@ -28,6 +27,9 @@ for row in transactions:
   payee = row['Booking text'].split('  ')[0]
   category = ''
   memo = row['Booking text']
+
+  if payee == 'TWINT':
+    payee = row['Booking text'].split('  ')[1]
 
   outflow = parse(row['Debit'])
   inflow = parse(row['Credit'])

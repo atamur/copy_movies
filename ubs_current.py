@@ -1,4 +1,3 @@
-import json
 import csv, time
 
 fname = 'ubs current 22-12-2020'

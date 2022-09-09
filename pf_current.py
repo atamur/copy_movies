@@ -40,7 +40,7 @@ for row in transactions:
   elif memo.startswith('PRICE FOR CASH WITHDRAWAL') or memo.startswith('PRICE FOR BANKING'):
     payee = 'Postfinance'
   elif memo.startswith('DEBIT'):
-    result = re.search(r"^DEBIT.*CH.{19}(.*?)(SENDER'S REFERENCE: (.*?)(\d+|$)|$)", memo)
+    result = re.search(r"^DEBIT.*?CH.{19}(.*?)(SENDER'S REFERENCE: (.*?)(\d+|$)|$)", memo)
     payee = result.group(1)
     ref = result.group(3)
     if ref:
@@ -52,7 +52,7 @@ for row in transactions:
     if ref:
       payee = ref
   elif memo.startswith('CREDIT MAILER'):
-    if 'Pyatigorskiy I. et/ou Pyatigorskaya' in memo:
+    if 'Pyatigorskiy I. et/ou Pyatigorskaya'.upper() in memo.upper():
       payee = 'BCGE'
     else:
       payee = re.search(r"CREDIT MAILER: (.*) COMMENTS:", memo).group(1)

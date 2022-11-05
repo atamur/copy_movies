@@ -1,2 +1,5 @@
 /venv/
 /.idea
+*.csv
+*.xls
+*.json

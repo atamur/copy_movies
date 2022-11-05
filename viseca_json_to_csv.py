@@ -1,7 +1,7 @@
 import json
 import csv, time
 
-fname = 'viseca_asya.json'
+fname = 'asya.json'
 fd = open(fname, encoding ="ISO-8859-1")
 data = json.load(fd)
 transactions = [x for x in data['list'] if x['stateType'] == 'booked' and x['type'] != 'fee']

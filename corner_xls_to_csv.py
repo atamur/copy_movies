@@ -4,7 +4,7 @@ import pandas as pd
 
 pd.set_option('display.max_columns', None)
 
-fname = 'transactions.xls'
+fname = 'transactions (7).xls'
 df = pd.read_excel(fname)
 df = df[df['Status'] == 'Settled transaction']
 

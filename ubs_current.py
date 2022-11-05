@@ -1,6 +1,6 @@
 import csv, time
 
-fname = 'ubs current 22-12-2020'
+fname = 'export'
 fd = open(fname + ".csv", encoding ="UTF-8-sig")
 transactions = csv.DictReader(fd, delimiter=';' )
 

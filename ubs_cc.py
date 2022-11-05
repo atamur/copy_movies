@@ -1,6 +1,6 @@
 import csv, time
 
-fname = 'ubs credit card 2'
+fname = 'report_10_09_2022 22_39_26'
 fd = open(fname + ".csv", encoding ="windows-1252")
 next(fd) # skip sep line
 transactions = csv.DictReader(fd, delimiter=';' )

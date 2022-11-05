@@ -1,7 +1,7 @@
 import csv, time
 import re
 
-fname = 'export_transactions_20220717 (1)'
+fname = 'export_transactions_20221105'
 fd = open(fname + ".csv", encoding ="UTF-8-sig")
 transactions = csv.DictReader(fd, delimiter=';' )
 
@@ -40,11 +40,16 @@ for row in transactions:
   elif memo.startswith('PRICE FOR CASH WITHDRAWAL') or memo.startswith('PRICE FOR BANKING'):
     payee = 'Postfinance'
   elif memo.startswith('DEBIT'):
-    result = re.search(r"^DEBIT.*?CH.{19}(.*?)(SENDER'S REFERENCE: (.*?)(\d+|$)|$)", memo)
+    result = re.search(r"^DEBIT.*?CH[^ ]{19}(.*?)(SENDER'S REFERENCE: (.*?)(\d+|$)|$)", memo)
     payee = result.group(1)
     ref = result.group(3)
     if ref:
       payee = ref
+    if payee.strip().upper() == "ILYA PYATIGORSKIY":
+      more_result = re.search(r"^DEBIT(.*?)CH[^ ]{19}", memo)
+      bank = more_result.group(1)
+      if bank:
+        payee = payee + " / " + bank
   elif memo.startswith('ISR'):
     result = re.search(r"ISR.*\d+-\d+-\d+(.*?)(SENDER'S REFERENCE: (.*?)(\d+|$)|$)", memo)
     payee = result.group(1)
@@ -56,6 +61,8 @@ for row in transactions:
       payee = 'BCGE'
     else:
       payee = re.search(r"CREDIT MAILER: (.*) COMMENTS:", memo).group(1)
+  elif memo.startswith('CREDIT'):
+    payee = re.search(r"CREDIT CH[^ ]{19} MAILER: (.*) COMMENTS:", memo).group(1)
   elif memo.startswith('TWINT PURCHASE/SERVICE'):
     payee = re.search(r"FROM TELEPHONE NO. \+\d+ (.*)$", memo).group(1)
   elif memo.startswith('TWINT SEND MONEY'):

@@ -6,7 +6,7 @@ pd.set_option('display.max_columns', None)
 def escape(str):
   return ''.join([x if ord(x) < 255 else '?' for x in str])
 
-fname = 'account-statement.csv'
+fname = 'account-statement_2022-07-01_2022-09-10_en_b66ded.csv'
 df = pd.read_csv(fname)
 df = df[df['State'] == 'COMPLETED']
 

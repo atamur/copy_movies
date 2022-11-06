@@ -2,7 +2,6 @@ import csv, time
 
 fname = 'report_10_09_2022 22_39_26'
 fd = open(fname + ".csv", encoding ="windows-1252")
-next(fd) # skip sep line
 transactions = csv.DictReader(fd, delimiter=';' )
 
 transactionsConverted = open(fname + ' conv.csv', 'w', encoding ="UTF-8")
@@ -23,7 +22,7 @@ for row in transactions:
   if not row['Account number']:
     continue
 
-  date = time.strftime('%d/%m/%Y', time.strptime(row['Booked'], '%d.%m.%Y')) # DD/MM/YYYY
+  date = time.strftime('%d/%m/%Y', time.strptime(row['Purchase date'], '%d.%m.%Y')) # DD/MM/YYYY
   payee = row['Booking text'].split('  ')[0]
   category = ''
   memo = row['Booking text']

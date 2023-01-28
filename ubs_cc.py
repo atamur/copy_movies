@@ -1,6 +1,6 @@
 import csv, time
 
-fname = 'report_10_09_2022 22_39_26'
+fname = 'transactions'
 fd = open(fname + ".csv", encoding ="windows-1252")
 transactions = csv.DictReader(fd, delimiter=';' )
 

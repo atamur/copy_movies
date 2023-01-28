@@ -27,22 +27,22 @@ for row in transactions:
   if not row['Trade date']:
     continue
 
-  date = time.strftime('%d/%m/%Y', time.strptime(row['Trade date'], '%Y-%m-%d')) # DD/MM/YYYY
-  if row['Description1'] in ['Payment', 'Salary Payment', 'Credit UBS TWINT', 'e-banking Order']:
-    payee = row['Description2']
-  elif row['Description1'] in []:
-    payee = row['Description3']
-  elif row['Description1'] in ['Debit card payment']:
-    payee = row['Description3'].split(',')[0]
+  date = time.strftime('%d/%m/%Y', time.strptime(row['Trade date'], '%d.%m.%Y')) # DD/MM/YYYY
+  if row['Description 1'] in ['Payment', 'Salary Payment', 'Credit UBS TWINT', 'e-banking Order']:
+    payee = row['Description 2']
+  elif row['Description 1'] in []:
+    payee = row['Description 3']
+  elif row['Description 1'] in ['Debit card payment']:
+    payee = row['Description 3'].split(',')[0]
   else:
-    payee = row['Description1']
+    payee = row['Description 1']
   category = ''
-  memo = row['Description1'] + '; ' + row['Description2'] + '; ' + row['Description3']
+  memo = row['Description 1'] + '; ' + row['Description 2'] + '; ' + row['Description 3']
 
-  outflow = parse(row['Debit amount'])
+  outflow = parse(row['Debit'])
   if outflow < 0:
     outflow = -outflow
-  inflow = parse(row['Credit amount'])
+  inflow = parse(row['Credit'])
 
   if outflow == 0 and inflow == 0:
     continue

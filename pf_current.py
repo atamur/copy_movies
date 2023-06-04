@@ -20,7 +20,8 @@ def parse(str):
 for row in transactions:
   print(row)
 
-  if not row['Booking date']:
+  pf_date = row['Date']
+  if not pf_date:
     continue
 
   outflow = -parse(row['Debit in CHF'])
@@ -29,7 +30,7 @@ for row in transactions:
   if outflow == 0 and inflow == 0:
     continue
 
-  date = time.strftime('%d/%m/%Y', time.strptime(row['Booking date'], '%d.%m.%Y')) # DD/MM/YYYY
+  date = time.strftime('%d/%m/%Y', time.strptime(pf_date, '%d.%m.%Y')) # DD/MM/YYYY
   memo = row['Notification text']
 
   if memo.startswith('CASH WITHDRAWAL'):

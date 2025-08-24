@@ -1,4 +1,6 @@
 import csv, time
+import sys
+sys.stdout.reconfigure(encoding='utf-8')  # Python 3.7+
 
 fname = 'transactions'
 fd = open(fname + ".csv", encoding ="windows-1252")

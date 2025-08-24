@@ -1,5 +1,6 @@
 import json
-import csv, time
+import csv
+from datetime import datetime
 
 fname = 'asya.json'
 fd = open(fname, encoding ="ISO-8859-1")
@@ -14,7 +15,7 @@ writer.writerow(['Date','Payee','Category','Memo','Outflow','Inflow'])
 
 for row in transactions:
   print(row)
-  date = time.strftime('%d/%m/%Y', time.strptime(row['date'], '%Y-%m-%dT%H:%M:%S')) # DD/MM/YYYY
+  date = datetime.fromisoformat(row['date']).strftime('%d/%m/%Y') # DD/MM/YYYY
   payee = row['merchantName']
   category = ''
   memo = row['details']

@@ -15,6 +15,8 @@ for row in transactions:
 
   date = time.strftime('%d/%m/%Y', time.strptime(row['Date'], '%Y-%m-%d')) # DD/MM/YYYY
   payee = row['Description'].split('  ')[0]
+  if payee == "Google":
+    payee = "Play Store"
   category = ''
   memo = row['Subject']
 

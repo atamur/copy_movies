@@ -15,7 +15,7 @@ writer.writerow(['Date','Payee','Category','Memo','Outflow','Inflow'])
 def parse(str):
   if not str:
     return 0.0
-  return float(str)
+  return float(str.replace("'", ""))
 
 for row in transactions:
   print(row)
@@ -65,7 +65,11 @@ for row in transactions:
   elif memo.startswith('CREDIT'):
     payee = re.search(r"CREDIT CH[^ ]{19} MAILER: (.*) COMMENTS:", memo).group(1)
   elif memo.startswith('TWINT PURCHASE/SERVICE'):
-    payee = re.search(r"FROM TELEPHONE NO. \+\d+ (.*)$", memo).group(1)
+    result = re.search(r"FROM TELEPHONE NO. \+\d+ (.*)$", memo)
+    if result:
+      payee = result.group(1)
+    else:
+      payee = re.search(r"TWINT PURCHASE/SERVICE FROM [\d.]*(.*) ", memo).group(1)
   elif memo.startswith('TWINT SEND MONEY'):
     payee = re.search(r"TO MOBILE NO\. \+\d+(.*)( NOTICES: (.*)|$)", memo).group(1)
   else:

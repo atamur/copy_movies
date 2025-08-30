@@ -105,7 +105,7 @@ with open(output_filename, 'w', encoding="ISO-8859-1", newline='') as transactio
         original_amount = row['Amount']
         fee = row['Fee']
         original_currency = row['Currency']
-        memo = f"Original: {original_amount:.2f} {original_currency}"
+        memo = '' if original_currency == TARGET_CURRENCY else f"Original: {original_amount:.2f} {original_currency}"
 
         net_amount = original_amount - fee
 

@@ -1,5 +1,7 @@
+import argparse
 import csv
 from datetime import datetime
+from pathlib import Path
 import pandas as pd
 import requests
 
@@ -10,8 +12,8 @@ import requests
 
 # --- Configuration ---
 # Place your Revolut CSV file in the same directory as this script.
-# Update the FNAME variable to match your file's name.
-FNAME = 'account-statement_2025-01-01_2025-08-24_en-us_873a73.csv'
+# Pass the CSV filename as an argument when running the script.
+FNAME = None
 TARGET_CURRENCY = 'CHF'
 
 # --- Caching ---
@@ -70,6 +72,16 @@ def escape(text_string):
 
 
 # --- Main Script ---
+
+parser = argparse.ArgumentParser(description='Convert Revolut CSV to YNAB CSV.')
+parser.add_argument('input', help='Path to Revolut CSV statement')
+args = parser.parse_args()
+
+input_path = Path(args.input)
+if input_path.suffix.lower() != '.csv':
+    input_path = input_path.with_suffix('.csv')
+
+FNAME = str(input_path)
 
 try:
     df = pd.read_csv(FNAME)

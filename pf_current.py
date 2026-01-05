@@ -1,11 +1,28 @@
-import csv, time
+import argparse
+import csv
+from pathlib import Path
+import time
 import re
 
-fname = 'export_transactions_20221105'
-fd = open(fname + ".csv", encoding ="UTF-8-sig")
-transactions = csv.DictReader(fd, delimiter=';' )
+parser = argparse.ArgumentParser(description='Convert PF Current export to YNAB CSV.')
+parser.add_argument('input', help='Path to PostFinance CSV export')
+args = parser.parse_args()
 
-transactionsConverted = open(fname + ' conv.csv', 'w', encoding ="UTF-8")
+input_path = Path(args.input)
+if input_path.suffix.lower() != '.csv':
+  input_path = input_path.with_suffix('.csv')
+
+fname = input_path.with_suffix('').name
+fd = open(input_path, encoding ="UTF-8-sig")
+sample = fd.read(2048)
+fd.seek(0)
+try:
+  dialect = csv.Sniffer().sniff(sample, delimiters=";,")
+except csv.Error:
+  dialect = csv.excel
+transactions = csv.DictReader(fd, delimiter=dialect.delimiter)
+
+transactionsConverted = open(f"{fname} conv.csv", 'w', encoding ="UTF-8")
 writer = csv.writer(transactionsConverted)
 
 # Write header row

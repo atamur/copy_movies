@@ -1,7 +1,17 @@
+import argparse
 import csv, time
+from pathlib import Path
 
-fname = '2022_10_account_statements'
-fd = open(fname + ".csv", encoding ="windows-1252")
+parser = argparse.ArgumentParser(description='Convert Neon export to YNAB CSV.')
+parser.add_argument('input', help='Path to Neon CSV export')
+args = parser.parse_args()
+
+input_path = Path(args.input)
+if input_path.suffix.lower() != '.csv':
+  input_path = input_path.with_suffix('.csv')
+
+fname = input_path.with_suffix('').name
+fd = open(input_path, encoding ="windows-1252")
 transactions = csv.DictReader(fd, delimiter=';' )
 
 transactionsConverted = open(fname + ' conv.csv', 'w', encoding ="UTF-8")

@@ -1,9 +1,19 @@
+import argparse
 import json
 import csv
 from datetime import datetime
+from pathlib import Path
 
-fname = 'asya.json'
-fd = open(fname, encoding ="ISO-8859-1")
+parser = argparse.ArgumentParser(description='Convert Viseca JSON to YNAB CSV.')
+parser.add_argument('input', help='Path to Viseca JSON export')
+args = parser.parse_args()
+
+input_path = Path(args.input)
+if input_path.suffix.lower() != '.json':
+  input_path = input_path.with_suffix('.json')
+
+fname = input_path.name
+fd = open(input_path, encoding ="ISO-8859-1")
 data = json.load(fd)
 transactions = [x for x in data['list'] if x['stateType'] == 'booked' and x['type'] != 'fee']
 # print(transactions[0])
